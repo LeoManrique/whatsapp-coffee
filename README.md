@@ -8,6 +8,7 @@ Each run brings WhatsApp to the front, checks it is connected, and relaunches it
 
 ```sh
 just tick       # one manual run
+just window     # print the content of the WhatsApp window
 just schedule   # schedule it with launchd
 just kill       # kill switch: stops and removes the schedule
 just status

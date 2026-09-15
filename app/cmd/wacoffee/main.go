@@ -3,6 +3,7 @@
 // Usage:
 //
 //	wacoffee tick
+//	wacoffee window
 package main
 
 import (
@@ -10,6 +11,7 @@ import (
 	"os"
 
 	"wacoffee/internal/tick"
+	"wacoffee/internal/whatsapp"
 )
 
 func main() {
@@ -28,12 +30,26 @@ func run(cmd string) error {
 	switch cmd {
 	case "tick":
 		return tick.Run()
+	case "window":
+		return checkWindow()
 	default:
 		usage()
 		return fmt.Errorf("unknown command %q", cmd)
 	}
 }
 
+// checkWindow prints everything the WhatsApp window shows
+func checkWindow() error {
+	text, err := whatsapp.WindowText()
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(text)
+	return nil
+}
+
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: wacoffee tick")
+	fmt.Fprintln(os.Stderr, "usage: wacoffee tick|window")
 }

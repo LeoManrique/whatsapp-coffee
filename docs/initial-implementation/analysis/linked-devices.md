@@ -22,7 +22,8 @@ Record the results below.
 
 ## Results
 
-- (pending)
+- WhatsApp servers blocked, Mac still online (2026-09-15): the window kept looking normal, with no banner, and sent messages stayed on the clock icon. After a relaunch the Chats header showed "Connecting..." and the session stayed linked.
+- Presence with the phone off, and a full reboot: pending.
 
 ## Sources
 

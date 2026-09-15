@@ -14,6 +14,10 @@ build:
 tick: build
     {{bin}} tick
 
+# Print the content of the WhatsApp window (takes a few seconds)
+window: build
+    {{bin}} window
+
 # Schedule the tick with launchd
 schedule: build
     {{bin}} schedule
