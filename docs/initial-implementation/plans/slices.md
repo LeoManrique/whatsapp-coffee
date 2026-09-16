@@ -14,12 +14,15 @@ Proves: `just tick` then `tail -1 ~/Library/Logs/wacoffee.log`.
 but no banner before it.
 Proves: `just window`.
 
-## Slice 3: schedule (next)
+## Slice 3: schedule
 
-`schedule` writes and loads the launchd plist, `kill` unloads and deletes it, `status` prints whether
-it is loaded and the last log line. The binary run by launchd must be granted Accessibility itself.
 Comes before 2b so the offline check can run while nobody is connected to the Mac.
-Proves: `just schedule` then `just status`.
+
+- **3a (done):** `schedule` writes the plist for the signed binary and loads it. The tick it runs at
+  load time worked with no permission prompt. Proves: `just schedule`, then `launchctl print` exits 0
+  and the log gets a new tick line.
+- **3b (next):** `kill` unloads the job and deletes the plist, `status` prints whether it is loaded
+  and the last log line. Proves: `just status`, `just kill`, `just status`.
 
 ## Slice 2b: stuck detection and recovery
 

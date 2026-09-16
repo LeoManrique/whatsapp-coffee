@@ -6,9 +6,10 @@ bin := "app/bin/wacoffee"
 default:
     @just --list
 
-# Build the binary into app/bin
+# Build the binary into app/bin, signed so macOS permissions survive rebuilds
 build:
     cd {{app}} && go build -o bin/wacoffee ./cmd/wacoffee
+    codesign -f -s "Apple Development" --identifier com.leomanrique.wacoffee {{bin}}
 
 # One manual tick
 tick: build
