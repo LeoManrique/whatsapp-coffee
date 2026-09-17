@@ -5,6 +5,8 @@
 //	wacoffee tick
 //	wacoffee window
 //	wacoffee schedule
+//	wacoffee kill
+//	wacoffee status
 package main
 
 import (
@@ -37,6 +39,10 @@ func run(cmd string) error {
 		return checkWindow()
 	case "schedule":
 		return schedule()
+	case "kill":
+		return kill()
+	case "status":
+		return status()
 	default:
 		usage()
 		return fmt.Errorf("unknown command %q", cmd)
@@ -76,6 +82,33 @@ func schedule() error {
 	return nil
 }
 
+// kill is the kill switch: no more ticks, and WhatsApp stays as it is.
+func kill() error {
+	// TODO 14: Remove the job with launchd.Kill() and keep the error as err.
+
+	// TODO 15: If err is not nil, return it.
+
+	fmt.Println("removed", launchd.Label)
+	return nil
+}
+
+// status prints whether the job is scheduled and what the last tick logged.
+func status() error {
+	// TODO 16: Ask launchd.Loaded() whether the job is there, keeping the two
+	//          results as loaded and err.
+
+	// TODO 17: If err is not nil, return it.
+
+	// TODO 18: Read the end of the log with logfile.LastLine(), keeping the two
+	//          results as last and err.
+
+	// TODO 19: If err is not nil, return it.
+
+	fmt.Println("scheduled:", loaded)
+	fmt.Println("last log line:", last)
+	return nil
+}
+
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: wacoffee tick|window|schedule")
+	fmt.Fprintln(os.Stderr, "usage: wacoffee tick|window|schedule|kill|status")
 }
