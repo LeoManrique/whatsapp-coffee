@@ -4,7 +4,7 @@
 
 - **Go 1.27**, standard library only. One binary: `wacoffee`.
 - **osascript** (AppleScript, System Events) for launching, focusing, and reading the WhatsApp window.
-- **launchd** user agent (`~/Library/LaunchAgents/com.leomanrique.wacoffee.plist`) runs `wacoffee tick` every 300 seconds and once when loaded, with stderr going to the log.
+- **launchd** user agent (`~/Library/LaunchAgents/com.leomanrique.wacoffee.plist`) runs `wacoffee tick` every 300 seconds and once when loaded, with stderr going to the log. Jobs are driven with `launchctl` in the `gui/<uid>` domain: `bootstrap` to load, `bootout` to unload, `print` to ask whether it is loaded. Exit code 3 or 113 means the job is not loaded, which `kill` and `status` treat as an answer, not a failure. On the Mac mini ticks landed about every 302 seconds on average, so tick times drift a few minutes a day.
 - Target: macOS 27, WhatsApp Desktop 26.x (native Mac Catalyst app).
 
 ## Layout
@@ -14,8 +14,8 @@ justfile                         build, tick, window, schedule, kill, status, lo
 app/                             Go project
   cmd/wacoffee/                  main: subcommands tick, window, schedule, kill, status
   internal/whatsapp/             running, launch, focus, quit, window text (osascript wrappers)
-  internal/launchd/              write and load / unload the plist
-  internal/logfile/              log path and logger
+  internal/launchd/              write, load, unload and delete the plist; is the job loaded
+  internal/logfile/              log path, logger, last line
   internal/tick/                 the tick sequence from DESIGN.md, strike counting
   bin/                           build output, ignored by git
 docs/initial-implementation/     analysis, experiment results, slice plan

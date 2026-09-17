@@ -11,7 +11,7 @@ just tick       # one manual run
 just window     # print the content of the WhatsApp window
 just schedule   # schedule it with launchd
 just kill       # kill switch: stops and removes the schedule
-just status
+just status     # is it scheduled, and the last log line
 ```
 
 Log: `~/Library/Logs/wacoffee.log`.

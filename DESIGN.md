@@ -14,9 +14,11 @@ While the phone is offline, messages must keep getting received and delivered, c
 
 The tick is the only process. There is no separate watchdog.
 
-## Kill switch
+## Kill switch and status
 
-`wacoffee kill` removes the launchd job. Nothing else keeps running. WhatsApp itself stays open.
+`wacoffee kill` unloads the launchd job and deletes its plist, so it does not come back at the next login. Nothing else keeps running. WhatsApp itself stays open. Running it when the job is already gone is not an error.
+
+`wacoffee status` prints whether launchd still has the job and the last line of the log. The log is kept by `kill`, so the last tick stays visible afterwards.
 
 ## Rules
 

@@ -5,7 +5,7 @@
 - [x] Slice 1: `wacoffee tick` ensures WhatsApp is running and focused, logs the result
 - [x] Slice 2a: `wacoffee window` prints the window content
 - [x] Slice 3a: `schedule` loads the launchd job, permissions granted to the signed binary
-- [ ] Slice 3b: `kill` / `status`
+- [x] Slice 3b: `kill` / `status`
 - [ ] Slice 2b: offline window check, classify the window state, strike counting, relaunch when stuck
 - [ ] Run supervised
 - [ ] Run unsupervised

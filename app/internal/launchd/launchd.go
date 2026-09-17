@@ -112,3 +112,37 @@ func Install(binary, logPath string) error {
 
 	return launchctl("bootstrap", domain(), path)
 }
+
+// Loaded reports whether launchd still has the job.
+func Loaded() (bool, error) {
+	err := launchctl("print", service())
+	if err == nil {
+		return true, nil
+	}
+
+	if notLoaded(err) {
+		return false, nil
+	}
+
+	return false, err
+}
+
+// Kill unloads the job and deletes its plist. WhatsApp is left running.
+func Kill() error {
+	path, err := plistPath()
+	if err != nil {
+		return err
+	}
+
+	err = unload()
+	if err != nil {
+		return err
+	}
+
+	err = os.Remove(path)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+
+	return nil
+}
