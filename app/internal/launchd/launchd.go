@@ -115,13 +115,14 @@ func Install(binary, logPath string) error {
 
 // Loaded reports whether launchd still has the job.
 func Loaded() (bool, error) {
-	// TODO 7: Ask launchd about the job with launchctl, passing "print" and
-	//         service(). Keep the error as err.
+	err := launchctl("print", service())
+	if err == nil {
+		return true, nil
+	}
 
-	// TODO 8: If err is nil, launchd knows the job: return true and no error.
-
-	// TODO 9: If notLoaded(err) is true, the job is simply not there, which is
-	//         an answer and not a failure: return false and no error.
+	if notLoaded(err) {
+		return false, nil
+	}
 
 	return false, err
 }
@@ -133,14 +134,15 @@ func Kill() error {
 		return err
 	}
 
-	// TODO 10: Unload the job with unload() and keep the error as err.
+	err = unload()
+	if err != nil {
+		return err
+	}
 
-	// TODO 11: If err is not nil, return it.
-
-	// TODO 12: Delete the plist at path with os.Remove and keep the error as err.
-
-	// TODO 13: If err is not nil and it is not errors.Is(err, os.ErrNotExist),
-	//          return err. A plist that was already gone is what we wanted.
+	err = os.Remove(path)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
 
 	return nil
 }
