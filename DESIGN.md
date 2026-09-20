@@ -18,7 +18,7 @@ The tick is the only process. There is no separate watchdog.
 
 `wacoffee kill` unloads the launchd job and deletes its plist, so it does not come back at the next login. Nothing else keeps running. WhatsApp itself stays open. Running it when the job is already gone is not an error.
 
-`wacoffee status` prints whether launchd still has the job and the last line of the log. The log is kept by `kill`, so the last tick stays visible afterwards.
+`wacoffee status` prints whether launchd still has the job, the current strike count, and the last line of the log. The log is kept by `kill`, so the last tick stays visible afterwards.
 
 ## Rules
 
@@ -32,4 +32,5 @@ The tick is the only process. There is no separate watchdog.
 ## Open questions
 
 - A lost connection can look normal: no banner, sent messages stay on the clock icon, and "Connecting..." only shows after a relaunch. How does the tick notice it?
-- What's the shape of the banner when the Mac has no network at all? What about when WhatApp servers are down?
+- What does the window show when WhatsApp's servers are down? A screen the tick does not recognize counts as a strike, so the worst case is a relaunch.
+- What does the link screen say in this app version? The words the tick looks for come from WhatsApp Web.

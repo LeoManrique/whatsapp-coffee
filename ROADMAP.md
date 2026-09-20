@@ -6,7 +6,9 @@
 - [x] Slice 2a: `wacoffee window` prints the window content
 - [x] Slice 3a: `schedule` loads the launchd job, permissions granted to the signed binary
 - [x] Slice 3b: `kill` / `status`
-- [ ] Slice 2b: offline window check, classify the window state, strike counting, relaunch when stuck
+- [x] Slice 2b-i: classify the window as connected, stuck, logged out or unknown; strike count file
+- [ ] Slice 2b-ii: the tick checks the window, counts strikes, relaunches when stuck
+- [ ] Read the link screen once on a spare Mac to confirm the logged-out markers
 - [ ] Run supervised
 - [ ] Run unsupervised
 - [ ] V2: run automatically on login or reboot

@@ -15,6 +15,7 @@ import (
 
 	"wacoffee/internal/launchd"
 	"wacoffee/internal/logfile"
+	"wacoffee/internal/state"
 	"wacoffee/internal/tick"
 	"wacoffee/internal/whatsapp"
 )
@@ -49,7 +50,7 @@ func run(cmd string) error {
 	}
 }
 
-// checkWindow prints everything the WhatsApp window shows
+// checkWindow prints everything the WhatsApp window shows and what it means.
 func checkWindow() error {
 	text, err := whatsapp.WindowText()
 
@@ -58,6 +59,9 @@ func checkWindow() error {
 	}
 
 	fmt.Println(text)
+
+	fmt.Println("status: " + whatsapp.Classify(text).String())
+
 	return nil
 }
 
@@ -93,9 +97,16 @@ func kill() error {
 	return nil
 }
 
-// status prints whether the job is scheduled and what the last tick logged.
+// status prints whether the job is scheduled, the strike count, and what the
+// last tick logged.
 func status() error {
 	loaded, err := launchd.Loaded()
+	if err != nil {
+		return err
+	}
+
+	s, err := state.Load()
+
 	if err != nil {
 		return err
 	}
@@ -106,6 +117,7 @@ func status() error {
 	}
 
 	fmt.Println("scheduled:", loaded)
+	fmt.Println("strikes:", s.Strikes)
 	fmt.Println("last log line:", last)
 	return nil
 }

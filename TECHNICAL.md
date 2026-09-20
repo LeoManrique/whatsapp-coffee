@@ -13,9 +13,11 @@
 justfile                         build, tick, window, schedule, kill, status, log, vet, test
 app/                             Go project
   cmd/wacoffee/                  main: subcommands tick, window, schedule, kill, status
-  internal/whatsapp/             running, launch, focus, quit, window text (osascript wrappers)
+  internal/whatsapp/             running, launch, focus, quit, window text (osascript wrappers);
+                                 classify the window text
   internal/launchd/              write, load, unload and delete the plist; is the job loaded
   internal/logfile/              log path, logger, last line
+  internal/state/                load and save the strike count
   internal/tick/                 the tick sequence from DESIGN.md, strike counting
   bin/                           build output, ignored by git
 docs/initial-implementation/     analysis, experiment results, slice plan
@@ -29,6 +31,11 @@ U+2066 to U+2069) that are stripped before matching. One AppleScript handler wal
 depth 12 in bulk calls per container (about 8 seconds), which covers the title bar, sidebar and
 banners and stops before the chat rows, so message content is never read. The window does not need to
 be frontmost for the read.
+
+`whatsapp.Classify` matches that text against fixed markers, in this order: the link screen texts mean
+logged out, a "Connecting" or "Waiting for network" subtitle in the Chats header means stuck, the
+"Chats" sidebar entry means connected. Anything else is unknown, so a screen nobody has seen yet is
+never taken for a healthy one.
 
 ## Accessibility permission
 

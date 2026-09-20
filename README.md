@@ -8,10 +8,10 @@ Each run brings WhatsApp to the front, checks it is connected, and relaunches it
 
 ```sh
 just tick       # one manual run
-just window     # print the content of the WhatsApp window
+just window     # print the content of the WhatsApp window and what it means
 just schedule   # schedule it with launchd
 just kill       # kill switch: stops and removes the schedule
-just status     # is it scheduled, and the last log line
+just status     # is it scheduled, the strike count, and the last log line
 ```
 
 Log: `~/Library/Logs/wacoffee.log`.
