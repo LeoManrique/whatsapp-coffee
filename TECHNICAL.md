@@ -65,4 +65,7 @@ long as it stays at `app/bin/wacoffee`.
 
 - Never sleeps or locks (either from Settings or third party apps like Amphetamine).
 - Display sleep: never.
+- Screen saver: never. By default it starts after 20 idle minutes and covers every window. The setting
+  is stored per host as `idleTime` in `com.apple.screensaver`, where 0 means never:
+  `defaults -currentHost read com.apple.screensaver idleTime`.
 - macOS automatic updates off.
