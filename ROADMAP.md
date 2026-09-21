@@ -10,7 +10,7 @@
 - [x] Slice 2b-ii: the tick checks the window, counts strikes, relaunches when stuck
 - [ ] Read the link screen once on a spare Mac to confirm the logged-out markers
 - [ ] Find out what hides the windows on the always-on Mac (only the desktop shows), and whether presence survives it
-- [ ] Run supervised
+- [x] Run supervised
 - [ ] Run unsupervised
 - [ ] V2: force quit when WhatsApp does not answer the quit request
 - [ ] V2: run automatically on login or reboot

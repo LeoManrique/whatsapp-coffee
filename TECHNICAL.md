@@ -49,7 +49,7 @@ macOS grants permissions to the first non-system program in the chain: the termi
 runs, the `wacoffee` binary itself under launchd. The binary needs Automation for System Events and
 WhatsApp, which macOS asks about on screen the first time it is missing, and Accessibility for reading
 the window, added by hand in System Settings > Privacy & Security > Accessibility. Without
-Accessibility, reads fail with `osascript is not allowed assistive access. (-25211)`. The first
+Accessibility, reads fail with `osascript is not allowed assistive access`, error -25211 or -1719. The first
 scheduled tick launched and focused WhatsApp with no prompt.
 
 Grants are tied to the code signature and the path. `just build` signs the binary with the Apple
