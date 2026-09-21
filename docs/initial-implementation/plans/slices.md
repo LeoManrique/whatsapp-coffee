@@ -34,10 +34,10 @@ with no header text is still an open question.
   unknown, and `wacoffee window` prints the verdict. A `state` package keeps the strike count in
   `state.json`, and `wacoffee status` prints it. Proves: `just window` says `status: connected`, and
   `status: stuck` with the network off; `just status` prints `strikes: 0`.
-- **2b-ii (next):** the tick reads the window after focusing, counts a strike when stuck or unknown, quits
+- **2b-ii (done):** the tick reads the window after focusing, counts a strike when stuck or unknown, quits
   and relaunches WhatsApp after 2, resets the count when connected, and logs and stops on the link
-  screen. Proves: WhatsApp blocked in the firewall, two ticks, the log shows the strikes and the
-  relaunch, `status` shows the count going back to 0.
+  screen. Proves: network off, two ticks, the log shows the strikes and the relaunch, `status` shows
+  the count going back to 0.
 
 The link screen markers are a guess until the screen is read once: log WhatsApp Desktop out on a Mac
 that is not the always-on one, run `just window`, and relink from the phone.

@@ -6,10 +6,18 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+	"time"
 )
 
 // appName is the name macOS knows the app by, in both the process list and AppleScript.
 const appName = "WhatsApp"
+
+// quitTimeout is how long Relaunch waits for the WhatsApp process to go away,
+// and quitPoll is the pause between two looks at the process list.
+const (
+	quitTimeout = 30 * time.Second
+	quitPoll    = time.Second
+)
 
 // osascript runs one line of AppleScript and returns its output without surrounding whitespace.
 func osascript(script string) (string, error) {
@@ -41,6 +49,36 @@ func Launch() error {
 // Focus brings the WhatsApp window to the front, starting the app if it is not running.
 func Focus() error {
 	return tell("activate")
+}
+
+// Quit asks WhatsApp to close, the same as Cmd+Q.
+func Quit() error {
+	return tell("quit")
+}
+
+// Relaunch quits WhatsApp, waits until its process is gone, and launches it again.
+func Relaunch() error {
+	if err := Quit(); err != nil {
+		return err
+	}
+
+	deadline := time.Now().Add(quitTimeout)
+	for {
+		running, err := Running()
+		if err != nil {
+			return err
+		}
+
+		if !running {
+			return Launch()
+		}
+
+		if time.Now().After(deadline) {
+			return fmt.Errorf("WhatsApp did not quit within %s", quitTimeout)
+		}
+
+		time.Sleep(quitPoll)
+	}
 }
 
 // tell sends one verb to the WhatsApp application object, such as "launch" or "activate".

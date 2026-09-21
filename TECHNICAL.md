@@ -37,6 +37,12 @@ logged out, a "Connecting" or "Waiting for network" subtitle in the Chats header
 "Chats" sidebar entry means connected. Anything else is unknown, so a screen nobody has seen yet is
 never taken for a healthy one.
 
+## Relaunch
+
+`whatsapp.Relaunch` sends `quit`, looks at the process list every second for up to 30 seconds, and
+launches the app again once the process is gone. If the process never goes away the tick fails before
+saving, so the strike count on disk stays below the limit and the next tick tries again.
+
 ## Accessibility permission
 
 macOS grants permissions to the first non-system program in the chain: the terminal app for manual
